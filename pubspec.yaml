@@ -1,18 +1,19 @@
-name: speed_test_port
+name: speed_test_dart
 description: Internet speed tester (ping, upload, download) using speedtest.net
-version: 1.0.5
-homepage: https://github.com/oiuldashov/speed_test_port
-repository: https://github.com/oiuldashov/speed_test_port
+version: 1.0.5+0
+homepage: https://github.com/jorger5/speed_test_dart
+repository: https://github.com/jorger5/speed_test_dart
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
-dependencies: 
+dependencies:
+  http: ^1.1.0
   sync: ^0.3.0
-  xml_parser: ^1.0.0
-  http: ^0.13.4
+  xml: ^6.3.0
 
 dev_dependencies:
-  very_good_analysis: ^3.0.1
+  very_good_analysis: ^5.1.0
+  dependency_validator: 3.2.3 #Apache-2.0 LICENSE
 
 

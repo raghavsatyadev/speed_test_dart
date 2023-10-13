@@ -1,30 +1,41 @@
-import 'package:xml_parser/xml_parser.dart';
+import 'package:xml/xml.dart';
 
-import 'coordinate.dart';
+import 'classes.dart';
 
 class Client {
-  String Ip;
-  double Latitude;
-  double Longitude;
-  String Isp;
-  double IspRating;
-  double Rating;
-  int IspAvarageDownloadSpeed;
-  int IspAvarageUploadSpeed;
+  Client(
+    this.ip,
+    this.latitude,
+    this.longitude,
+    this.isp,
+    this.ispRating,
+    this.rating,
+    this.ispAvarageDownloadSpeed,
+    this.ispAvarageUploadSpeed,
+    this.geoCoordinate,
+  );
+
+  Client.fromXMLElement(final XmlElement? element)
+      : ip = element!.getAttribute('ip')!,
+        latitude = double.parse(element.getAttribute('lat')!),
+        longitude = double.parse(element.getAttribute('lon')!),
+        isp = element.getAttribute('isp')!,
+        ispRating = double.parse(element.getAttribute('isprating')!),
+        rating = double.parse(element.getAttribute('rating')!),
+        ispAvarageDownloadSpeed = int.parse(element.getAttribute('ispdlavg')!),
+        ispAvarageUploadSpeed = int.parse(element.getAttribute('ispulavg')!),
+        geoCoordinate = Coordinate(
+          double.parse(element.getAttribute('lat')!),
+          double.parse(element.getAttribute('lon')!),
+        );
+
+  String ip;
+  double latitude;
+  double longitude;
+  String isp;
+  double ispRating;
+  double rating;
+  int ispAvarageDownloadSpeed;
+  int ispAvarageUploadSpeed;
   Coordinate geoCoordinate;
-
-  Client(this.Ip, this.Latitude, this.Longitude, this.Isp, this.IspRating, this.Rating, this.IspAvarageDownloadSpeed,
-      this.IspAvarageUploadSpeed, this.geoCoordinate);
-
-  Client.fromXMLElement(XmlElement element)
-      : this.Ip = element.getAttribute('ip')!,
-        this.Latitude = double.parse(element.getAttribute('lat')!),
-        this.Longitude = double.parse(element.getAttribute('lon')!),
-        this.Isp = element.getAttribute('isp')!,
-        this.IspRating = double.parse(element.getAttribute('isprating')!),
-        this.Rating = double.parse(element.getAttribute('rating')!),
-        this.IspAvarageDownloadSpeed = int.parse(element.getAttribute('ispdlavg')!),
-        this.IspAvarageUploadSpeed = int.parse(element.getAttribute('ispulavg')!),
-        this.geoCoordinate =
-            Coordinate(double.parse(element.getAttribute('lat')!), double.parse(element.getAttribute('lon')!));
 }

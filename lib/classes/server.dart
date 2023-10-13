@@ -1,48 +1,71 @@
-import 'package:xml_parser/xml_parser.dart';
+import 'package:xml/xml.dart';
 
-import 'coordinate.dart';
+import 'classes.dart';
 
 class Server {
+  Server(
+    this.id,
+    this.name,
+    this.country,
+    this.sponsor,
+    this.host,
+    this.url,
+    this.latitude,
+    this.longitude,
+    this.distance,
+    this.latency,
+    this.geoCoordinate,
+  );
+
+  Server.fromXMLElement(final XmlElement? element)
+      : id = int.parse(element!.getAttribute('id')!),
+        name = element.getAttribute('name')!,
+        country = element.getAttribute('country')!,
+        sponsor = element.getAttribute('sponsor')!,
+        host = element.getAttribute('host')!,
+        url = element.getAttribute('url')!,
+        latitude = double.parse(element.getAttribute('lat')!),
+        longitude = double.parse(element.getAttribute('lon')!),
+        distance = 99999999999,
+        latency = 99999999999,
+        geoCoordinate = Coordinate(
+          double.parse(element.getAttribute('lat')!),
+          double.parse(element.getAttribute('lon')!),
+        );
+
   int id;
-
   String name;
-
   String country;
-
   String sponsor;
-
   String host;
-
   String url;
-
   double latitude;
   double longitude;
-
   double distance;
-
   double latency;
-
   Coordinate geoCoordinate;
+}
 
-  Server(this.id, this.name, this.country, this.sponsor, this.host, this.url, this.latitude, this.longitude,
-      this.distance, this.latency, this.geoCoordinate);
+class ServersList {
+  ServersList(
+    this.servers,
+  );
 
-  Server.fromXMLElement(XmlElement element)
-      : this.id = int.parse(element.getAttribute('id')!),
-        this.name = element.getAttribute('name')!,
-        this.country = element.getAttribute('country')!,
-        this.sponsor = element.getAttribute('sponsor')!,
-        this.host = element.getAttribute('host')!,
-        this.url = element.getAttribute('url')!,
-        this.latitude = double.parse(element.getAttribute('lat')!),
-        this.longitude = double.parse(element.getAttribute('lon')!),
-        this.distance = 99999999999,
-        this.latency = 99999999999,
-        this.geoCoordinate =
-            Coordinate(double.parse(element.getAttribute('lat')!), double.parse(element.getAttribute('lon')!));
+  ServersList.fromXMLElement(final XmlElement? element)
+      : servers = element!
+            .getElement('servers')!
+            .children
+            .whereType<XmlElement>()
+            .map((final element) {
+          final server = Server.fromXMLElement(element);
+          return server;
+        });
 
-  @override
-  String toString() {
-    return sponsor + " " + name;
+  Iterable<Server> servers;
+
+  void calculateDistances(final Coordinate clientCoordinate) {
+    for (final s in servers) {
+      s.distance = clientCoordinate.getDistanceTo(s.geoCoordinate);
+    }
   }
 }

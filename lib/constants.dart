@@ -1,4 +1,4 @@
-import 'package:speed_test_port/enums/file_size.dart';
+import 'enums/file_size.dart';
 
 const configUrl = 'https://www.speedtest.net/speedtest-config.php';
 
@@ -6,7 +6,7 @@ const serversUrls = [
   'https://www.speedtest.net/speedtest-servers-static.php',
   'https://c.speedtest.net/speedtest-servers-static.php',
   'https://www.speedtest.net/speedtest-servers.php',
-  'https://c.speedtest.net/speedtest-servers.php'
+  'https://c.speedtest.net/speedtest-servers.php',
 ];
 
 const defaultDownloadSizes = [
@@ -15,5 +15,5 @@ const defaultDownloadSizes = [
   FileSize.SIZE_1500,
   FileSize.SIZE_3000,
 ];
-const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const hars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const maxUploadSize = 4; // 400 KB

@@ -1,24 +1,28 @@
-import 'package:xml_parser/xml_parser.dart';
+import 'package:xml/xml.dart';
 
 class Times {
-  int Download1;
+  Times(
+    this.download1,
+    this.download2,
+    this.download3,
+    this.upload1,
+    this.upload2,
+    this.upload3,
+  );
 
-  int Download2;
+  Times.fromXMLElement(final XmlElement? element)
+      : download1 = int.parse(element!.getAttribute('dl1')!),
+        download2 = int.parse(element.getAttribute('dl2')!),
+        download3 = int.parse(element.getAttribute('dl3')!),
+        upload1 = int.parse(element.getAttribute('ul1')!),
+        upload2 = int.parse(element.getAttribute('ul2')!),
+        upload3 = int.parse(element.getAttribute('ul3')!);
 
-  int Download3;
-  int Upload1;
+  int download1;
+  int download2;
+  int download3;
 
-  int Upload2;
-
-  int Upload3;
-
-  Times(this.Download1, this.Download2, this.Download3, this.Upload1, this.Upload2, this.Upload3);
-
-  Times.fromXMLElement(XmlElement element)
-      : this.Download1 = int.parse(element.getAttribute('dl1')!),
-        this.Download2 = int.parse(element.getAttribute('dl2')!),
-        this.Download3 = int.parse(element.getAttribute('dl3')!),
-        this.Upload1 = int.parse(element.getAttribute('ul1')!),
-        this.Upload2 = int.parse(element.getAttribute('ul2')!),
-        this.Upload3 = int.parse(element.getAttribute('ul3')!);
+  int upload1;
+  int upload2;
+  int upload3;
 }

@@ -1,16 +1,13 @@
-<div>
-  <h1 align="center">speed_test_port</h1>
-  <p align="center" >
-    <a title="Pub" href="https://pub.dartlang.org/packages/speed_test_port" >
-      <img src="https://img.shields.io/pub/v/speed_test_port.svg?style=popout&include_prereleases" />
-    </a>
-  </p>
-  <p align="center">
-  Internet speed tester (ping, upload, download) using speedtest.net
-  </p>
-</div>
+# speed_test_dart
 
-Port of [SpeedTest.Net](https://github.com/hasali19/SpeedTest.Net) to Dart
+Forked from [speed_test_port](https://pub.dev/packages/speed_test_port)
+
+Flutter package to test ping, upload, download using speedtest.net
+
+## Optimizations
+
+Some refactors, more customization and better error handling. Now the test are done from a server
+list and if one server fails, it will try the next one.
 
 ## Installation
 
@@ -18,35 +15,37 @@ Add the package to your dependencies:
 
 ```yaml
 dependencies:
-  speed_test_port: ^1.0.4
+  speed_test_dart: ^1.0.0
 ```
-
-OR:
-
-```yaml
-dependencies:
-  speed_test_port:
-    git: https://github.com/oiuldashov/speed_test_port.git
-```
-
 
 Finally, run `dart pub get` to download the package.
 
 Projects using this library should use the stable channel of Flutter
 
-## Example of usage for Stream version
+### Startup
 
-### Example version in "example" folder (Stream version)
+At the startup of the app, we need to get the best servers to do the test (see `setBestServers`
+function). It's recommended to disabled the buttons while this operation is happening:
 
-[Link to code](https://github.com/oiuldashov/speed_test_port/blob/main/example/lib/main.dart#L46)
+![Startup](./media/startup.gif)
 
-![Streams example gif](./readme_media/example.gif)
+### Download Speed
 
+Doing download test:
 
-### Example of usage for Future version
+![Download test](./media/download.gif)
+
+### Upload Speed
+
+Doing upload test:
+
+![Upload test](./media/upload.gif)
+
+## Example of usage
+
 ```dart
     // Create a tester instance
-    SpeedTestPort tester = SpeedTestPort();
+    SpeedTestDart tester = SpeedTestDart();
 
     // And a variable to store the best servers
     List<Server> bestServersList = [];
@@ -73,4 +72,3 @@ Projects using this library should use the stable channel of Flutter
     //Test upload speed in MB/s
     final uploadRate = await tester.testUploadSpeed(servers: bestServersList);
 ```
-
